@@ -7,11 +7,16 @@ tooltips.forEach(function(tooltip) {
   tooltip.addEventListener('click', function(event) {
     event.preventDefault(); // Отменяем переход по ссылке
 
-    // Если есть активная подсказка, скрываем ее и удаляем из DOM
+    // Проверяем, был ли клик по активной подсказке
+    if (activeTooltip !== null && activeTooltip.textContent === tooltip.getAttribute('title')) {
+      // Если да, то просто переключаем видимость подсказки и завершаем метод
+      activeTooltip.classList.toggle('tooltip_active');
+      return;
+    }
+
+    // Если клик был по другой подсказке, скрываем активную подсказку, если она есть
     if (activeTooltip !== null) {
       activeTooltip.parentNode.removeChild(activeTooltip);
-      activeTooltip = null;
-      return;
     }
 
     // Создаем элемент подсказки
@@ -29,7 +34,6 @@ tooltips.forEach(function(tooltip) {
     tooltipElement.style.left = tooltipPosition.left + 'px';
     tooltipElement.style.top = (tooltipPosition.top + tooltipPosition.height) + 'px';
 
-
     // Добавляем класс "tooltip_active", чтобы показать подсказку
     tooltipElement.classList.add('tooltip_active');
 
@@ -39,10 +43,11 @@ tooltips.forEach(function(tooltip) {
     // Добавляем обработчик события "click" на весь документ для скрытия подсказки при клике вне элемента
     document.addEventListener('click', function(event) {
       if (!tooltip.contains(event.target)) {
-        tooltipElement.parentNode.removeChild(tooltipElement);
-        activeTooltip = null;
+        if (tooltipElement.parentNode) {
+          tooltipElement.parentNode.removeChild(tooltipElement);
+          activeTooltip = null;
+        }
       }
-    
     });
   });
 });
