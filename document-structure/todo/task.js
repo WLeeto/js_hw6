@@ -85,23 +85,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Обработчик события нажатия клавиши Enter в поле ввода
-  input.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      // Получаем значение из поля ввода
-      const taskTitle = input.value.trim();
-      // Проверяем, чтобы поле ввода не было пустым
-      if (taskTitle !== '') {
-        // Вызываем функцию для добавления задачи
-        addTask(taskTitle);
-        // Обновляем данные в localStorage
-        updateLocalStorage();
-        // Очищаем поле ввода
-        input.value = '';
-      }
-    }
-  });
+  // // Обработчик события нажатия клавиши Enter в поле ввода
+  // input.addEventListener('keydown', function(event) {
+  //   if (event.key === 'Enter') {
+  //     event.preventDefault();
+  //     // Получаем значение из поля ввода
+  //     const taskTitle = input.value.trim();
+  //     // Проверяем, чтобы поле ввода не было пустым
+  //     if (taskTitle !== '') {
+  //       // Вызываем функцию для добавления задачи
+  //       addTask(taskTitle);
+  //       // Обновляем данные в localStorage
+  //       updateLocalStorage();
+  //       // Очищаем поле ввода
+  //       input.value = '';
+  //     }
+  //   }
+  // });
 
   // Загружаем задачи из localStorage при загрузке страницы
   loadTasksFromLocalStorage();
